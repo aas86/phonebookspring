@@ -1,10 +1,12 @@
 package ru.academits.phonebook;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import ru.academits.model.Contact;
-import ru.academits.model.ContactValidation;
+import ru.academits.converter.ContactDtoToContactConverter;
+import ru.academits.converter.ContactToContectDtoConverter;
+import ru.academits.dto.ContactDto;
+import ru.academits.entity.Contact;
+import ru.academits.bean.ContactValidation;
 import ru.academits.service.ContactService;
 
 import java.util.List;
@@ -13,23 +15,28 @@ import java.util.List;
  * Created by Anna on 17.07.2017.
  */
 
-@Controller
+@RestController
 @RequestMapping("/phoneBook/rcp/api/v1")
 public class PhoneBookController {
 
     @Autowired
     private ContactService contactService;
 
+    @Autowired
+    private ContactToContectDtoConverter contactToContectDtoConverter;
+
+    @Autowired
+    private ContactDtoToContactConverter contactDtoToContactConverter;
+
     @RequestMapping(value = "getAllContacts", method = RequestMethod.GET)
-    @ResponseBody
-    public List<Contact> getAllContacts() {
-        return contactService.getAllContacts();
+    public List<ContactDto> getAllContacts() {
+        return contactToContectDtoConverter.convert(contactService.getAllContacts());
     }
 
     @RequestMapping(value = "addContact", method = RequestMethod.POST)
-    @ResponseBody
-    public ContactValidation addContact(@RequestBody Contact contact) {
-        return contactService.addContact(contact);
+    public ContactValidation addContact(@RequestBody ContactDto contact) {
+        Contact contactEntity = contactDtoToContactConverter.convert(contact);
+        return contactService.addContact(contactEntity);
     }
 }
 

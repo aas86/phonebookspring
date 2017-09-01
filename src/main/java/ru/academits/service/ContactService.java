@@ -3,8 +3,8 @@ package ru.academits.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.academits.dao.ContactDao;
-import ru.academits.model.Contact;
-import ru.academits.model.ContactValidation;
+import ru.academits.entity.Contact;
+import ru.academits.bean.ContactValidation;
 
 import java.util.List;
 

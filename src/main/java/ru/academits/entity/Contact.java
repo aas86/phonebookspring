@@ -1,4 +1,4 @@
-package ru.academits.model;
+package ru.academits.entity;
 
 public class Contact {
     private int id;

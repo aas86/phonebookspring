@@ -1,7 +1,7 @@
 package ru.academits.dao;
 
 import org.springframework.stereotype.Repository;
-import ru.academits.model.Contact;
+import ru.academits.entity.Contact;
 
 import java.util.ArrayList;
 import java.util.List;

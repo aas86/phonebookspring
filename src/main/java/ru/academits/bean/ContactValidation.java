@@ -1,4 +1,4 @@
-package ru.academits.model;
+package ru.academits.bean;
 
 public class ContactValidation {
     private boolean valid;
