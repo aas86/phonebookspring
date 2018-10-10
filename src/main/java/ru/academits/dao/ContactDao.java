@@ -11,4 +11,6 @@ public interface ContactDao {
     List<Contact> getAllContacts();
 
     void add(Contact contact);
+
+    void delete(Contact contact);
 }

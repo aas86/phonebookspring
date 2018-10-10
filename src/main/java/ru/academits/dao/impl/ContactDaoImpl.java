@@ -37,6 +37,15 @@ public class ContactDaoImpl implements ContactDao {
 
     @Override
     public void add(Contact contact) {
+        contact.setId(getNewId());
         contactList.add(contact);
+    }
+
+    @Override
+    public void delete(Contact contact){
+        //int i = contact.getId();
+        contactList.stream().filter(x -> x.getId() >= contact.getId()).forEach(x -> x.setId(x.getId() - 1));
+        contactList.remove(contact.getId() - 1);
+        idSequence.decrementAndGet();
     }
 }

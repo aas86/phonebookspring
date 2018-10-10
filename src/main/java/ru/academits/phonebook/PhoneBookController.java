@@ -38,6 +38,11 @@ public class PhoneBookController {
         Contact contactEntity = contactDtoToContactConverter.convert(contact);
         return contactService.addContact(contactEntity);
     }
+    @RequestMapping(value = "deleteContact", method = RequestMethod.POST)
+    public void deleteContact(@RequestBody ContactDto contact){
+        Contact contactEntity = contactDtoToContactConverter.convert(contact);
+        contactService.deleteContact(contactEntity);
+    }
 }
 
 

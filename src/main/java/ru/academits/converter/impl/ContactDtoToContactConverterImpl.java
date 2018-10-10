@@ -27,6 +27,6 @@ public class ContactDtoToContactConverterImpl implements ContactDtoToContactConv
 
     @Override
     public List<Contact> convert(List<ContactDto> sourceList) {
-        return sourceList.stream().map(this::convert).collect(Collectors.toList());
+        return sourceList.stream().map((contactDto) -> convert(contactDto)).collect(Collectors.toList());
     }
 }
