@@ -38,11 +38,19 @@ public class PhoneBookController {
         Contact contactEntity = contactDtoToContactConverter.convert(contact);
         return contactService.addContact(contactEntity);
     }
+
     @RequestMapping(value = "deleteContact", method = RequestMethod.POST)
     public void deleteContact(@RequestBody ContactDto contact){
         Contact contactEntity = contactDtoToContactConverter.convert(contact);
         contactService.deleteContact(contactEntity);
     }
+
+    @RequestMapping(value = "deleteChecked", method = RequestMethod.POST)
+    public void deleteCheckedContacts(@RequestBody List<ContactDto> idList){
+        List<Contact> contactsEntity = contactDtoToContactConverter.convert(idList);
+        contactService.deleteCheckedContacts(contactsEntity);
+    }
+
 }
 
 

@@ -15,5 +15,7 @@ public interface ContactService {
 
     void deleteContact(Contact contact);
 
+    void deleteCheckedContacts(List<Contact> contacts);
+
     List<Contact> getAllContacts();
 }

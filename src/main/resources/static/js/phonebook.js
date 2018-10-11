@@ -316,16 +316,37 @@ $(document).ready(function () {
     var deleteChecked = $("#deleteChecked");
     deleteChecked.on('click', function () {
         var listOfChecked = $(".tbody").find(".select-me");
-        _.each(listOfChecked, function (el, index) {
-            if (el.is(":checked")){
-                deleteContact();
-            }
-        });
+        var indexList = [];
+        var contact = null;
         listOfChecked.each(function (index, e) {
-            if (e.is("checked")){
-                deleteContact();
+            if ($(e).is(":checked")) {
+                //indexList.push($(this).closest("tr").find("td:eq(1)").text());
+                var id = $(this).closest("tr").find("td:eq(1)").text();
+                var firstName = $(this).closest("tr").find("td:eq(3)").text();
+                var lastName = $(this).closest("tr").find("td:eq(2)").text();
+                var phone = $(this).closest("tr").find("td:eq(4)").text();
+                contact = new Contact(firstName, lastName, phone);
+                contact.id = id;
+                indexList.push(contact);
+                console.log(indexList);
             }
 
+        });
+        $.ajax({
+            type: "POST",
+            url: "/phoneBook/rcp/api/v1/deleteChecked",
+            dataType: 'json',
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(indexList)
+           // data: JSON.stringify(indexList)
+        }).always(function (response) {
+            $.ajax({
+                type: "GET",
+                url: "/phoneBook/rcp/api/v1/getAllContacts",
+                success: function (response) {
+                    drawTable(response);
+                }
+            })
         });
 
     })

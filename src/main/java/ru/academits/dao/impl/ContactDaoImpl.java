@@ -42,10 +42,25 @@ public class ContactDaoImpl implements ContactDao {
     }
 
     @Override
-    public void delete(Contact contact){
+    public void delete(Contact contact) {
         //int i = contact.getId();
         contactList.stream().filter(x -> x.getId() >= contact.getId()).forEach(x -> x.setId(x.getId() - 1));
+        //Сначала отфильтровали (взяли все контакты, которые после удаляемого)
+        //Потом у них у всех уменьшили id на 1
         contactList.remove(contact.getId() - 1);
         idSequence.decrementAndGet();
+    }
+
+    @Override
+    public void deleteChecked(List<Contact> contacts) {
+        contactList.removeAll(contacts);
+        for (int i = 0; i < contacts.size(); i++) {
+            idSequence.decrementAndGet();
+        }
+        // заного проставляем id всем контактам
+        for (int i = 0, j = 1; i < contactList.size(); i++, j++) {
+            contactList.get(i).setId(j);
+        }
+
     }
 }
